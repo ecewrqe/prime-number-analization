@@ -6,6 +6,7 @@
 
 ## 基本情報
 language: python3.6.5
+
 framework: tkinter8.6
 OS: windows10
 author: euewrqe
