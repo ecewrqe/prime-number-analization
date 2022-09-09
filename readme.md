@@ -5,8 +5,7 @@
 拙いアルゴリズム力はごめんなさい、pythonのtkinterなので、どうにか素数の並べと素数の判定が直感的に作り上げた
 
 ## 基本情報
-language: python3.6.5
-
+language: python3.6.5　
 framework: tkinter8.6
 OS: windows10
 author: euewrqe
