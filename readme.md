@@ -5,11 +5,11 @@
 拙いアルゴリズム力はごめんなさい、pythonのtkinterなので、どうにか素数の並べと素数の判定が直感的に作り上げた
 
 ## 基本情報
-language: python3.6.5　
-framework: tkinter8.6
-OS: windows10
-author: euewrqe
-requiring software: python3.6.5, pip3, tkinter8.6
+language: python3.6.5　 
+framework: tkinter8.6  
+OS: windows10  
+author: euewrqe  
+requiring software: python3.6.5, pip3, tkinter8.6  
 
 ## 機能
 あ：最大数と最小数という両端を定めてから出来る素数二次元表
