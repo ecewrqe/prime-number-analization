@@ -29,7 +29,7 @@ from PySide6.QtCore import QSize, Qt
 from PySide6.QtGui import QFont
 
 class NumSmallError(Exception):
-    def __init__(self, *args: object) -> None:
+    def __init__(self, *args):
         super().__init__(*args)
 
 class MainWindow(QMainWindow):
