@@ -16,7 +16,7 @@ import time
 max_num: 最大数
 min_num: 最小数
 """
-def get_primenum_list_2(max_num, min_num=None):
+def get_primenum_list_2(max_num, min_num=None, is_happy=None):
     num = max_num
     prime_list = []
     
@@ -29,7 +29,10 @@ def get_primenum_list_2(max_num, min_num=None):
             if num % i == 0:
                 break
         else:
-            prime_list.append(num)
+            if is_happy and is_happy_func(num):
+                prime_list.append(num)
+            elif not is_happy:
+                prime_list.append(num)
         num -= 1
     
     prime_dict = {}
@@ -112,7 +115,7 @@ def is_prime(n):
 
 # is happy
 SQUARE = dict([(c, int(c) ** 2) for c in "0123456789"])
-def is_happy(n):
+def is_happy_func(n):
   s = set()
   while (n > 1) and (n not in s):
     s.add(n)
@@ -135,34 +138,45 @@ class Application(tk.Frame):
         self.master.geometry("700x500")
         self.master.title("素数の検証")
         master = self.master
-        label = tk.Label(self.master, text="最大数を入力してください")
+
+        self.is_happy = False
+
+        label = tk.Label(self.master, text="最小数:")
         label.grid(row=10, column=0)
-        self.text = tk.Entry()
-        self.text.grid(row=10, column=20)
-
-        label2 = tk.Label(self.master, text="最小数を入力してください")
-        label2.grid(row=20, column=0)
         self.text2 = tk.Entry()
-        self.text2.grid(row=20, column=20)
+        self.text2.grid(row=10, column=10)
+        
 
-        button = tk.Button(text="行こう", width=4, height=1, command=self.btn_click)
+        label = tk.Label(self.master, text="最大数:")
+        label.grid(row=20, column=0)
+        self.text = tk.Entry()
+        self.text.grid(row=20, column=10)
+
+        
+
+        button = tk.Button(text="確定", width=4, height=1, command=self.btn_click)
         button.grid(row=30, column=0, sticky=tk.W)
+        self.checkbox = tk.Checkbutton(self.master, text="ハッピー？", command=self.get_happy, variable=self.is_happy)
+        self.checkbox.grid(row=30, column=10)
         self.msg = tk.Label(text="msg", foreground="black")
         self.msg.grid(row=40, column=0)
         self.prime_list = []
-
-        self.result_label = tk.Label(text="result:", foreground="black")
+        
+        self.result_label = tk.Label(self.master, text="", foreground="black")
         self.result_label.grid(row=50, column=0)
 
-        label = tk.Label(self.master, text="いずれの数は素数であるかを判定する：")
+        label = tk.Label(self.master, text="素数判定：")
         label.grid(row=70, column=0)
         self.text3 = tk.Entry()
         self.text3.grid(row=80, column=0)
-        button2 = tk.Button(text="行こう", width=4, height=1, command=self.btn_click2)
+        button2 = tk.Button(self.master, text="確定", width=4, height=1, command=self.btn_click2)
         button2.grid(row=90, column=0, sticky=tk.W)
-        self.msg2 = tk.Label(text="msg", foreground="black")
+        self.msg2 = tk.Label(self.master, text="msg", foreground="black")
         self.msg2.grid(row=100, column=0)
-        
+    
+    def get_happy(self):
+        self.is_happy = not self.is_happy
+
     def push_button(self):
         self.tree.yview("scroll", +1, "units")
     def btn_click2(self):
@@ -172,19 +186,24 @@ class Application(tk.Frame):
             result, divitor = is_prime(prime_num)
 
             if result:
-                self.msg2.config(text="素数である", foreground="black")
+                self.msg2.config(text="素数", foreground="black")
                 # is happy
-                happy = is_happy(prime_num)
+                happy = is_happy_func(prime_num)
                 if happy:
-                    self.msg2.config(text="素数である、ハッピー素数である", foreground="black")
+                    self.msg2.config(text="素数且つハッピー素数", foreground="black")
 
             else:
-                self.msg2.config(text="素数でない、" + str(divitor) + "に割れる", foreground="black")
+                self.msg2.config(text="素数ではない、" + str(divitor) + "に割れる", foreground="black")
         except ValueError:
             self.msg2.config(text="数字をください", foreground="red")
         
         
     def btn_click(self):
+        if self.is_happy:
+            self.result_label.config(text="ハッピー素数表:")
+        else:
+            self.result_label.config(text="素数表:")
+
         max_num = self.text.get()
         min_num = self.text2.get()
         try:
@@ -199,7 +218,7 @@ class Application(tk.Frame):
             if max_num < 7: 
                 raise(NumSmallError)
             start_time = time.time()
-            self.prime_list, self.prime_dict = get_primenum_list_2(max_num, min_num)
+            self.prime_list, self.prime_dict = get_primenum_list_2(max_num, min_num, self.is_happy)
             run_time = time.time() - start_time
 
             column = ("head", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
