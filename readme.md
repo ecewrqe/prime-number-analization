@@ -7,7 +7,7 @@
 
 ## 基本情報
 language: python3.6.5  
-framework: tkinter8.6  
+framework: tkinter8.6, PySide6, qtCreator, pyinstaller  
 OS: windows10  
 author: euewrqe  
 requiring software: python3.6.5, pip3, tkinter8.6  
@@ -19,6 +19,7 @@ requiring software: python3.6.5, pip3, tkinter8.6
 ## note
 アルゴリズムによって、素数表の機能について最大数制限は八桁。最小数は7以下を入力しても自ら7以上と定められる  
 素数判定機能では16桁の判定は可能
+>> 配布: pyinstaller --onefile --noconsole qt_prime_num.py
 
 ## 新機能
 ハッピー素数判定機能とハッピー素数一覧表作成可能になりました

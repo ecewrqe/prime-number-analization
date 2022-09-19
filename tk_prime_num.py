@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 prime number analization / tkinter version
 author: euewrqe

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # This Python file uses the following encoding: utf-8
 import sys
 from prime_num import get_primenum_list_2, is_prime, is_happy_func
@@ -35,7 +36,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setWindowTitle("素数の検証")
-        self.setFixedSize(QSize(1200, 900))
+        self.setFixedSize(QSize(1200, 700))
         self.widget = QWidget()
         self.layout = QVBoxLayout()
 
@@ -151,16 +152,16 @@ class MainWindow(QMainWindow):
             self.tableMsg.setStyleSheet("color: black")
 
             prime_list, prime_dict = get_primenum_list_2(max_num, min_num, self.is_happy)
-            count = 0
-            row_count = max_num / 10
-            self.table.setRowCount(row_count)
+            count = min_num // 10
+            row_count = max_num // 10
+            self.table.setRowCount(row_count - count)
 #            self.table.setItem(count,0,QTableWidgetItem(str(count)))
             while count <= max_num:
-                self.table.setItem(count,0,QTableWidgetItem(str(count)))
+                self.table.setItem(count - min_num // 10,0,QTableWidgetItem(str(count)))
                 if prime_dict.get(str(count)):
                     count_2 = 1
                     for col in prime_dict[str(count)]:
-                        self.table.setItem(count,count_2,QTableWidgetItem(str(col))
+                        self.table.setItem(count - min_num // 10,count_2, QTableWidgetItem(str(col))
                         )
                         count_2 += 1
 
