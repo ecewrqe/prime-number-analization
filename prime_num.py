@@ -12,7 +12,7 @@ import time
 max_num: 最大数
 min_num: 最小数
 """
-def get_primenum_list_2(max_num, min_num=None, is_happy=None):
+def get_primenum_list_2(max_num, min_num=None, is_happy=False, is_prime=True):
     num = max_num
     prime_list = []
     
@@ -20,16 +20,24 @@ def get_primenum_list_2(max_num, min_num=None, is_happy=None):
         min_num = 7
     if max_num < min_num: 
         return
-    while num >= min_num:
-        for i in range(2, int(num**0.5) + 1):
-            if num % i == 0:
-                break
-        else:
+    if is_prime:
+        while num >= min_num:
+            for i in range(2, int(num**0.5) + 1):
+                if num % i == 0:
+                    break
+            else:
+                if is_happy and is_happy_func(num):
+                    prime_list.append(num)
+                elif not is_happy:
+                    prime_list.append(num)
+            num -= 1
+    else:
+        while num >= min_num:
             if is_happy and is_happy_func(num):
                 prime_list.append(num)
-            elif not is_happy:
-                prime_list.append(num)
-        num -= 1
+
+            
+            num -= 1
     
     prime_dict = {}
     for prime in prime_list:
